@@ -150,7 +150,7 @@ fun RegisterScreen() {
 
             TextButton(onClick = {}) {
                 Text(
-                    text = "¿No tienes una cuenta? Regístrate",
+                    text = "¿Ya tienes una cuenta? Inicia Sesión",
                     color = Color(0xFFFF9900)
                 )
             }
