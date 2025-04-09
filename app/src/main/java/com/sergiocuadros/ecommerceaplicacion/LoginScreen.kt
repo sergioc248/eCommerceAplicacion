@@ -48,6 +48,7 @@ fun LoginScreen() {
                 modifier = Modifier.size(150.dp)
             )
 
+            Spacer(modifier = Modifier.height(24.dp))
 
             Text(
                 text = "Iniciar Sesión",
