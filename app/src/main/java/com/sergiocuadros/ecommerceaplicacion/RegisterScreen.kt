@@ -45,9 +45,11 @@ fun RegisterScreen(navController: NavController) {
             TopAppBar(
                 title = {},
                 navigationIcon = {
-                    IconButton (onClick = {
-                        navController.navigate("login")
-                    }){Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)}
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                    }) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
+                    }
                 }
             )
         }
