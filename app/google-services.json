@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "854426923948",
+    "project_id": "ecommerceapp248",
+    "storage_bucket": "ecommerceapp248.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854426923948:android:8b76c62401ef24269e0009",
+        "android_client_info": {
+          "package_name": "com.sergiocuadros.ecommerceaplicacion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9OEBGZ7IKZmW9INjxL1VN-5QhHycy2d4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
