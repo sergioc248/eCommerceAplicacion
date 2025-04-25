@@ -1,5 +1,7 @@
 package com.sergiocuadros.ecommerceaplicacion
 
+import android.app.Activity
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,20 +23,33 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.media3.common.util.Log
 import androidx.navigation.NavController
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 @Composable
 fun LoginScreen(navController: NavController) {
-    Scaffold { innerPadding ->
+    // Estados de los Inputs
+    var inputEmail by remember { mutableStateOf("hola") }
+    var inputPassword by remember { mutableStateOf("contraseña") }
 
+    val activity = LocalView.current.context as Activity
+
+    Scaffold { innerPadding ->
         Column(
             modifier = Modifier
                 .padding(innerPadding)
@@ -61,8 +76,8 @@ fun LoginScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(32.dp))
 
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = inputEmail,
+                onValueChange = { inputEmail = it },
                 modifier = Modifier.fillMaxWidth(),
                 leadingIcon = {
                     Icon(
@@ -80,8 +95,8 @@ fun LoginScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(32.dp))
 
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = inputPassword,
+                onValueChange = { inputPassword = it },
                 modifier = Modifier.fillMaxWidth(),
                 leadingIcon = {
                     Icon(
@@ -100,7 +115,18 @@ fun LoginScreen(navController: NavController) {
 
             Button(
                 onClick = {
-                    navController.navigate("home")
+                    val auth = Firebase.auth
+
+                    auth.signInWithEmailAndPassword(inputEmail, inputPassword)
+                        .addOnCompleteListener(activity) {task ->
+
+                            if(task.isSuccessful){
+                                navController.navigate("home")
+                            } else{
+                                Log.i("login", "Hubo un error")
+                            }
+                        }
+
                 }, modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
@@ -124,8 +150,10 @@ fun LoginScreen(navController: NavController) {
     }
 }
 
-@Preview
-@Composable
-fun LoginScreenPreview() {
-    //LoginScreen()
+fun validateEmail(email: String): Pair<Boolean, String> {
+    return when {
+        email.isEmpty()-> Pair(false, "El correo es obligatorio")
+        !email.endsWith("@unab.edu.co") -> Pair(false, "El correo debe ser unab")
+        else -> Pair(true, "")
+    }
 }
