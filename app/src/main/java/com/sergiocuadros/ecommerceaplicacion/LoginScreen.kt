@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(onClickRegister: () -> Unit = {}) {
     Scaffold { innerPadding ->
 
         Column(
@@ -100,7 +100,7 @@ fun LoginScreen(navController: NavController) {
 
             Button(
                 onClick = {
-                    navController.navigate("home")
+                    onClickRegister
                 }, modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
@@ -112,9 +112,7 @@ fun LoginScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            TextButton(onClick = {
-                navController.navigate("register")
-            }) {
+            TextButton(onClick = onClickRegister) {
                 Text(
                     text = "¿No tienes una cuenta? Regístrate",
                     color = Color(0xFFFF9900)
